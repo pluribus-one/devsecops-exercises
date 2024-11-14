@@ -16,12 +16,12 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Generate SBOMs
         run: |
           cd vuln_apps/${{ matrix.prj_folder }}
-          cdxgen --format json -o "${{ matrix.prj_folder }}_bom.json" --spec-version=1.4
+          cdxgen --format json -o "${{ matrix.prj_folder }}_bom.json" --spec-version=1.6
 
       - name: Generate VEXs (JSON)
         uses: aquasecurity/trivy-action@master
