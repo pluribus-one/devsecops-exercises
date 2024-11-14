@@ -12,7 +12,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        prj_folder: [ "dvna", "vulnado" ]
+        project: [ "dvna", "vulnado" ]
         cdx_spec_version: ["1.5"]
 
     steps:
@@ -21,35 +21,34 @@ jobs:
 
       - name: Generate SBOMs
         run: |
-          cd vuln_apps/${{ matrix.prj_folder }}
+          cd vuln_apps/${{ matrix.project }}
           cdxgen \
           --format json \
           --spec-version="${{matrix.cdx_spec_version}}" \
           --project-name="${{ matrix.project }}" \
           --project-version="${{ github.run_number }}" \
-          -o "${{ matrix.prj_folder }}_bom.json"
+          -o "${{ matrix.project }}_bom.json"
 
       - name: Generate VEXs (JSON)
         uses: aquasecurity/trivy-action@0.28.0
         with:
-
           scan-type: "fs"
-          scan-ref: "./vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_bom.json"
+          scan-ref: "./vuln_apps/${{ matrix.project }}/${{ matrix.project }}_bom.json"
           format: cyclonedx
-          output: "vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_vex.json"
+          output: "vuln_apps/${{ matrix.project }}/${{ matrix.project }}_vex.json"
 
       - name: Generate VEXs (Human)
         uses: aquasecurity/trivy-action@0.28.0
         with:
           scan-type: "fs"
-          scan-ref: "./vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_bom.json"
+          scan-ref: "./vuln_apps/${{ matrix.project }}/${{ matrix.project }}_bom.json"
           format: table
-          output: "vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_vex_human"
+          output: "vuln_apps/${{ matrix.project }}/${{ matrix.project }}_vex_human"
 
       - name: Upload results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sbom-vex-jsons
-          path: vuln_apps/**/${{matrix.prj_folder}}_*
+          name: sbom-vex-${{ matrix.project }}-jsons
+          path: vuln_apps/**/${{ matrix.project }}_*
           retention-days: 5
