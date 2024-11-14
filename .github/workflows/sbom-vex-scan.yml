@@ -30,17 +30,20 @@ jobs:
           -o "${{ matrix.prj_folder }}_bom.json"
 
       - name: Generate VEXs (JSON)
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.28.0
         with:
-          scan-type: "sbom vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_bom.json"
-          format: "cyclonedx"
+
+          scan-type: "fs"
+          scan-ref: "./vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_bom.json"
+          format: cyclonedx
           output: "vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_vex.json"
 
       - name: Generate VEXs (Human)
-        uses: aquasecurity/trivy-action@master
+        uses: aquasecurity/trivy-action@0.28.0
         with:
-          scan-type: "sbom vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_bom.json"
-          format: "table"
+          scan-type: "fs"
+          scan-ref: "./vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_bom.json"
+          format: table
           output: "vuln_apps/${{ matrix.prj_folder }}/${{ matrix.prj_folder }}_vex_human"
 
       - name: Upload results
