@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         prj_folder: [ "dvna", "vulnado" ]
-        cdx_spec_version: ["1.5","1.5"]
+        cdx_spec_version: ["1.5"]
 
     steps:
       - name: Checkout Repository
