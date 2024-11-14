@@ -21,13 +21,14 @@ jobs:
             cdx_spec_version: "1.5"
             cdx_image:  quay.io/pluribus_one/sbom_vex_scanner@sha256:4c93316f95a2fe12bd2683ec34ff36d8e3a29501c797fb4825e7e510bab29ce3
 
+    container:
+      image: ${{matrix.cdx_image}}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Generate SBOMs
-        uses: "${{ matrix.cdx_image }}"
         run: |
           cd vuln_apps/${{ matrix.project }}
           cdxgen \
