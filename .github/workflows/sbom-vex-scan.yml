@@ -8,18 +8,27 @@ jobs:
   sbom-vex-scan:
     name: SBOM/VEX Generation
     runs-on: ubuntu-latest
-    container: quay.io/pluribus_one/sbom_vex_scanner@sha256:4c93316f95a2fe12bd2683ec34ff36d8e3a29501c797fb4825e7e510bab29ce3
     strategy:
       fail-fast: false
       matrix:
         project: [ "dvna", "vulnado" ]
         cdx_spec_version: ["1.5"]
+        include:
+          - project: vulnado
+            cdx_spec_version: "1.5"
+            cdx_image: ghcr.io/cyclonedx/cdxgen-java:v10
+          - project: dvna
+            cdx_spec_version: "1.5"
+            cdx_image:  quay.io/pluribus_one/sbom_vex_scanner@sha256:4c93316f95a2fe12bd2683ec34ff36d8e3a29501c797fb4825e7e510bab29ce3
+
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Generate SBOMs
+        container:
+          image: "${{ matrix.cdx_image }}"
         run: |
           cd vuln_apps/${{ matrix.project }}
           cdxgen \
