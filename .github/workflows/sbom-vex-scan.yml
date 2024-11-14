@@ -22,7 +22,12 @@ jobs:
       - name: Generate SBOMs
         run: |
           cd vuln_apps/${{ matrix.prj_folder }}
-          cdxgen --format json --project-name="${{ matrix.project }}" --project-version="${{ github.run_number }}" --spec-version="${{matrix.cdx_spec_version}}" -o "${{ matrix.prj_folder }}_bom.json"
+          cdxgen \
+          --format json \
+          --spec-version="${{matrix.cdx_spec_version}}" \
+          --project-name="${{ matrix.project }}" \
+          --project-version="${{ github.run_number }}" \
+          -o "${{ matrix.prj_folder }}_bom.json"
 
       - name: Generate VEXs (JSON)
         uses: aquasecurity/trivy-action@master

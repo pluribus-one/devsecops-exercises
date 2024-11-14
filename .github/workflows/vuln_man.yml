@@ -12,6 +12,7 @@ jobs:
       fail-fast: false
       matrix:
         project: ["dvna", "vulnado"]
+        cdx_spec_version: ["1.5"]
 
     steps:
       - name: Checkout Repository
@@ -20,7 +21,12 @@ jobs:
       - name: Generate SBOMs
         run: |
           cd vuln_apps/${{ matrix.project }}
-          cdxgen --format json -o "${{ matrix.project }}_bom.json" --project-name="${{ matrix.project }}" --project-version="${{ github.run_number }}" --spec-version="${{matrix.cdx_spec_version}}"
+          cdxgen \
+          --format json \
+          --spec-version="${{matrix.cdx_spec_version}}" \
+          --project-name="${{ matrix.project }}" \
+          --project-version="${{ github.run_number }}" \
+          -o "${{ matrix.project }}_bom.json"
 
       - name: Upload results
         if: always()
@@ -58,8 +64,15 @@ jobs:
           tags: ${{ matrix.project }}:latest
 
       - name: Generate docker SBOMs
-        run: |
-          cdxgen --type docker --format json -o "${{ matrix.project }}-docker_bom.json" --project-name="${{ matrix.project }}" --project-version="${{ github.run_number }}" --spec-version="${{matrix.cdx_spec_version}}" ${{ matrix.project }}:latest
+        run: >
+          cdxgen
+          --type docker
+          --format json
+          --spec-version="${{matrix.cdx_spec_version}}"
+          --project-name="${{ matrix.project }}"
+          --project-version="${{ github.run_number }}"
+          -o "${{ matrix.project }}-docker_bom.json"
+          ${{ matrix.project }}:latest
 
       - name: upload Artifacts
         uses: actions/upload-artifact@v4
@@ -93,8 +106,14 @@ jobs:
           path: ./sboms-${{matrix.project}}
 
       - name: Merge previously generated sboms
-        run: |
-          cyclonedx merge --input-files sboms-${{matrix.project}}/${{ matrix.project }}_bom.json sboms-${{matrix.project}}/${{ matrix.project }}-docker_bom.json --output-file ${{ matrix.project }}_merged_sbom.json --hierarchical --name ${{ matrix.project }} --version ${{ github.run_number }} --group devsecops-exercises
+        run: >
+          cyclonedx merge
+          --input-files sboms-${{matrix.project}}/${{ matrix.project }}_bom.json sboms-${{matrix.project}}/${{ matrix.project }}-docker_bom.json
+          --output-file ${{ matrix.project }}_merged_sbom.json
+          --hierarchical
+          --name ${{ matrix.project }}
+          --version ${{ github.run_number }}
+          --group devsecops-exercises
 
       - name: upload Artifacts
         uses: actions/upload-artifact@v4
