@@ -103,6 +103,7 @@ https://github.com/OWASP/threat-dragon
 
 ## DAST
 **ZAP GitHub Action** - https://github.com/marketplace/actions/zap-full-scan  
+**ZAP Custom Auth Scripts** - https://www.zaproxy.org/docs/authentication/handling-auth-yourself/  
 **ZAProxy (CheckMarx)** - https://www.zaproxy.org/download  
 **BurpSuite (PortSwigger)** - https://portswigger.net/burp/communitydownload  
 **Nuclei (ProjectDiscovery)** - https://projectdiscovery.io/nuclei
