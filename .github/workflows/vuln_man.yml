@@ -29,13 +29,13 @@ jobs:
           submodules: recursive
 
       - name: Generate SBOMs
-        working-directory: vuln_apps/${{ matrix.project }}
         run: >
-          cdxgen 
-          --format json 
-          --spec-version="${{matrix.cdx_spec_version}}" 
-          --project-name="${{ matrix.project }}" 
-          --project-version="${{ github.run_number }}" 
+          cd vuln_apps/${{ matrix.project }}
+          cdxgen \
+          --format json \
+          --spec-version="${{ matrix.cdx_spec_version }}" \
+          --project-name="${{ matrix.project }}" \
+          --project-version="${{ github.run_number }}" \
           -o "${{ matrix.project }}_bom.json"
 
       # - name: Generate SBOMs
