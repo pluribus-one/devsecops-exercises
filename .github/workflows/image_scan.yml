@@ -10,7 +10,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        prj_folder: ["webgoat", "juice-shop"]
+        project: ["webgoat", "juice-shop"]
 
     steps:
       - name: Checkout Repository
@@ -30,14 +30,14 @@ jobs:
         id: build-image
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
-          context: "${{ github.workspace }}/vuln_apps/${{ matrix.prj_folder }}"
+          context: "./vuln_apps/${{ matrix.project }}"
           push: false
           load: true
-          tags: ${{ matrix.prj_folder }}:latest
+          tags: ${{ matrix.project }}:latest
 
       - name: Docker Scout CVEs
         uses: docker/scout-action@bacf462e8d090c09660de30a6ccc718035f961e3 #v1.0.2
         with:
           command: cves
-          image: local://${{ matrix.prj_folder }}:latest
-          sarif-file: ${{ matrix.prj_folder }}-cves.json
+          image: local://${{ matrix.project }}:latest
+          sarif-file: ${{ matrix.project }}-cves.json
