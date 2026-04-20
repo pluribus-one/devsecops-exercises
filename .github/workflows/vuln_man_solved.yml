@@ -47,12 +47,15 @@ jobs:
   sbom-docker:
     name: Generate docker SBOM
     runs-on: ubuntu-latest
-    container: ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
     strategy:
       fail-fast: false
       matrix:
         project: ["webgoat", "juice-shop"]
         cdx_spec_version: ["1.6"]
+
+    container:
+      image: ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
+      options: --user root
 
     steps:
       - name: Checkout Repository
