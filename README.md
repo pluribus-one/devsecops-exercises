@@ -89,7 +89,6 @@ https://docs.docker.com/engine/install/
 Per velocizzare la fruzione dei contenuti, una volta installato **docker**, scaricate le seguenti immagini sulla vostra workstation nei giorni precedenti all'inizio del corso:
 - `docker pull aquasec/trivy`
 - `docker pull zaproxy/zap-stable:2.15.0`
-- `docker pull appsecco/dvna:sqlite`
 
 # Risorse esterne
 In questa sezione, i link agli strumenti e alle risorse esterne condivise durante la formazione.

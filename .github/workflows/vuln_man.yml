@@ -58,7 +58,7 @@ jobs:
   #   strategy:
   #     fail-fast: false
   #     matrix:
-  #       project: ["dvna", "vulnado"]
+  #       project: ["webgoat", "juice-shop"]
   #       cdx_spec_version: ["1.5"]
 
   #   steps:
@@ -107,7 +107,7 @@ jobs:
   #   strategy:
   #     fail-fast: false
   #     matrix:
-  #       project: ["dvna", "vulnado"]
+  #       project: ["webgoat", "juice-shop"]
 
   #   steps:
   #     - name: Download artifact sbom

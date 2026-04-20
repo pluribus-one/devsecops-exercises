@@ -49,7 +49,7 @@ jobs:
       - if: matrix.language == 'java-kotlin'
         name: Compile project
         run: |
-          cd vuln_apps/vulnado
+          cd vuln_apps/webgoat
           ./mvnw -B clean package -DskipTests=true
 
       # Perform the actual code analysis, that will automatic upload GitHub security section
