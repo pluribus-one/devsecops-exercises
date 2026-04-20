@@ -34,18 +34,6 @@ jobs:
           --project-version="${{ github.run_number }}" \
           -o "${{ matrix.project }}_bom.json"
 
-      # - name: Generate SBOMs
-      #   run: >
-      #     docker run --rm
-      #     -v ${{ github.workspace }}/vuln_apps/${{ matrix.project }}:/output:z
-      #     ${{ matrix.cdx_image }}
-      #     cdxgen
-      #     --format json
-      #     --spec-version="${{ matrix.cdx_spec_version }}"
-      #     --project-name="${{ matrix.project }}"
-      #     --project-version="${{ github.run_number }}"
-      #     -o "/output/${{ matrix.project }}_bom.json"
-
       - name: Upload results
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -60,7 +48,7 @@ jobs:
   # sbom-docker:
   #   name: Generate docker SBOM
   #   runs-on: ubuntu-latest
-  #   container: quay.io/pluribus_one/sbom_vex_scanner@4c93316f95a2fe12bd2683ec34ff36d8e3a29501c797fb4825e7e510bab29ce3
+  #   container: ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
   #   strategy:
   #     fail-fast: false
   #     matrix:
@@ -109,7 +97,7 @@ jobs:
   #   name: Merge previously generated SBOM
   #   runs-on: ubuntu-latest
   #   needs: ["sbom", "sbom-docker"]
-  #   container: cyclonedx/cyclonedx-cli:0.27.1
+  #   container: cyclonedx/cyclonedx-cli@sha256:8475ecf6c09d17dbb3b039d6999334d3ecf3aaed13395b3413007e568d52a9e3 #0.30.0
   #   strategy:
   #     fail-fast: false
   #     matrix:

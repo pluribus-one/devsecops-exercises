@@ -12,17 +12,11 @@ jobs:
       fail-fast: false
       matrix:
         project: ["webgoat", "juice-shop"]
-        cdx_spec_version: ["1.5"]
-        include:
-          - project: webgoat
-            cdx_spec_version: "1.6"
-            cdx_image: ghcr.io/cyclonedx/cdxgen-java@sha256:490fb6842e1e507b7a5051699d1d03b13b87bd1a3b99736ac26c11cbbce9a2bd
-          - project: juice-shop
-            cdx_spec_version: "1.6"
-            cdx_image:  ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
+        cdx_spec_version: ["1.6"]
 
     container:
-      image: ${{ matrix.cdx_image }}
+      image: ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
+      options: --user root
 
     steps:
       - name: Checkout Repository
@@ -35,7 +29,7 @@ jobs:
         run: >
           cdxgen 
           --format json 
-          --spec-version="${{matrix.cdx_spec_version}}" 
+          --spec-version="${{ matrix.cdx_spec_version }}" 
           --project-name="${{ matrix.project }}" 
           --project-version="build-${{ github.run_number }}" 
           -o "${{ matrix.project }}_bom.json"
@@ -53,7 +47,7 @@ jobs:
   sbom-docker:
     name: Generate docker SBOM
     runs-on: ubuntu-latest
-    container: quay.io/pluribus_one/sbom_vex_scanner@4c93316f95a2fe12bd2683ec34ff36d8e3a29501c797fb4825e7e510bab29ce3
+    container: ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
     strategy:
       fail-fast: false
       matrix:
@@ -102,7 +96,7 @@ jobs:
     name: Merge previously generated SBOM
     runs-on: ubuntu-latest
     needs: ["sbom", "sbom-docker"]
-    container: cyclonedx/cyclonedx-cli:0.27.1
+    container: cyclonedx/cyclonedx-cli@sha256:8475ecf6c09d17dbb3b039d6999334d3ecf3aaed13395b3413007e568d52a9e3 #0.30.0
     strategy:
       fail-fast: false
       matrix:
