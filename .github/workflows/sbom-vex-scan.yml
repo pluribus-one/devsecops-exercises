@@ -11,14 +11,16 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: [ "dvna", "vulnado" ]
+        project: [ "webgoat", "juice-shop" ]
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@sha256:de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: recursive
 
       - name: Generate VEXs (Human)
-        uses: aquasecurity/trivy-action@0.33.1
+        uses: aquasecurity/trivy-action@sha256:57a97c7e7821a5776cebc9bb87c984fa69cba8f1 # v0.35.0
         with:
           scan-type: fs
           format: table
@@ -30,7 +32,7 @@ jobs:
 
       - name: Upload results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@sha256:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: vex-${{ matrix.project }}
           path: ${{ matrix.project }}.vex

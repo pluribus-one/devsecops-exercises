@@ -11,22 +11,24 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["dvna", "vulnado"]
+        project: ["webgoat", "juice-shop"]
         cdx_spec_version: ["1.5"]
         include:
-          - project: vulnado
+          - project: webgoat
             cdx_spec_version: "1.5"
-            cdx_image: ghcr.io/cyclonedx/cdxgen-java:v10
-          - project: dvna
+            cdx_image: ghcr.io/cyclonedx/cdxgen-java@sha256:490fb6842e1e507b7a5051699d1d03b13b87bd1a3b99736ac26c11cbbce9a2bd
+          - project: juice-shop
             cdx_spec_version: "1.5"
-            cdx_image:  quay.io/pluribus_one/sbom_vex_scanner@sha256:4c93316f95a2fe12bd2683ec34ff36d8e3a29501c797fb4825e7e510bab29ce3
+            cdx_image:  ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
 
     container:
       image: ${{matrix.cdx_image}}
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@sha256:de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: recursive
 
       - name: Generate SBOMs
         run: |
@@ -40,7 +42,7 @@ jobs:
 
       - name: Upload results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@sha256:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sbom-${{matrix.project}}
           path: "vuln_apps/${{ matrix.project }}/${{ matrix.project }}_bom.json"
@@ -55,19 +57,21 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["dvna", "vulnado"]
+        project: ["webgoat", "juice-shop"]
         cdx_spec_version: ["1.5"]
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@sha256:de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          submodules: recursive
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+        uses: docker/setup-buildx-action@sha256:4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
 
       - name: Build Docker image
         id: build-image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@sha256:bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
           context: "${{ github.workspace }}/vuln_apps/${{ matrix.project }}"
           push: false
@@ -86,7 +90,7 @@ jobs:
           ${{ matrix.project }}:latest
 
       - name: upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@sha256:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sbom-${{matrix.project}}-docker
           path: ${{ matrix.project }}-docker_bom.json
@@ -102,17 +106,17 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        project: ["dvna", "vulnado"]
+        project: ["webgoat", "juice-shop"]
 
     steps:
       - name: Download artifact sbom
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@sha256:3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: sbom-${{matrix.project}}
           path: ./sboms-${{matrix.project}}
 
       - name: Download artifact sbom-docker
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@sha256:3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: sbom-${{matrix.project}}-docker
           path: ./sboms-${{matrix.project}}
@@ -128,7 +132,7 @@ jobs:
           --group devsecops-exercises
 
       - name: upload Artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@sha256:043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: sbom-${{matrix.project}}-merged
           path: ${{ matrix.project }}_merged_sbom.json

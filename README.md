@@ -19,6 +19,24 @@ Per poter agire in autonomia durante gli esercizi, abbiamo identificato come pra
 Di seguito gli step necessari per effettuarla una volta che avrete creato l'account GitHub:  
 https://docs.github.com/en/get-started/quickstart/fork-a-repo
 
+Clona il repo con i submodule:
+```bash
+git clone --recurse-submodules <tuo-repo>
+```
+
+Se hai già clonato senza submodule:
+```bash
+git submodule update --init
+```
+
+#### Aggiornare i progetti
+
+Nel caso l'upstream viene aggiornato, si può aggiornare la copia in locale dei submodules con il seguente comando.
+
+```bash
+git submodule update --remote
+```
+
 ### Docker Hub
 
 Per eseguire uno degli esercizi è necessario avere un account su docker hub, creare una chiave API di accesso ed infine inserirla nella parte secrets sulla repository che andrete a creare.  
