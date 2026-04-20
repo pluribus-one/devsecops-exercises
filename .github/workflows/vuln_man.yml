@@ -27,11 +27,11 @@ jobs:
       - name: Generate SBOMs
         working-directory: vuln_apps/${{ matrix.project }}
         run: >
-          cdxgen
-          --format json \
-          --spec-version="${{ matrix.cdx_spec_version }}" \
-          --project-name="${{ matrix.project }}" \
-          --project-version="${{ github.run_number }}" \
+          cdxgen 
+          --format json 
+          --spec-version="${{ matrix.cdx_spec_version }}" 
+          --project-name="${{ matrix.project }}" 
+          --project-version="${{ github.run_number }}" 
           -o "${{ matrix.project }}_bom.json"
 
       - name: Upload results
@@ -53,7 +53,7 @@ jobs:
   #     fail-fast: false
   #     matrix:
   #       project: ["webgoat", "juice-shop"]
-  #       cdx_spec_version: ["1.5"]
+  #       cdx_spec_version: ["1.6"]
 
   #   steps:
   #     - name: Checkout Repository
