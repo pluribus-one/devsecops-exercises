@@ -16,10 +16,10 @@ jobs:
         include:
           - project: webgoat
             cdx_spec_version: "1.5"
-            cdx_image: ghcr.io/cyclonedx/cdxgen-java@490fb6842e1e507b7a5051699d1d03b13b87bd1a3b99736ac26c11cbbce9a2bd
+            cdx_image: ghcr.io/cyclonedx/cdxgen-java@sha256:490fb6842e1e507b7a5051699d1d03b13b87bd1a3b99736ac26c11cbbce9a2bd
           - project: juice-shop
             cdx_spec_version: "1.5"
-            cdx_image:  ghcr.io/cyclonedx/cdxgen@41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
+            cdx_image:  ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
 
     container:
       image: ${{matrix.cdx_image}}
