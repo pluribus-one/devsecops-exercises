@@ -1,0 +1,3 @@
+[submodule "vuln_apps/webgoat"]
+	path = vuln_apps/webgoat
+	url = https://github.com/WebGoat/WebGoat.git
