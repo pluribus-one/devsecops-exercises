@@ -28,11 +28,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+      - name: Setup Java 25
+        if: matrix.project == 'webgoat'
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
+        with:
+          java-version: 25
+          distribution: temurin
+
+      - name: Compile project
+        if: matrix.project == 'webgoat'
+        working-directory: vuln_apps/webgoat
+        run: mvn -B clean package -DskipTests
+
       - name: Build Docker image
         id: build-image
         uses: docker/build-push-action@bcafcacb16a39f128d818304e6c9c0c18556b85f # v7.1.0
         with:
-          context: "./vuln_apps/${{ matrix.project }}"
+          context: "${{ github.workspace }}/vuln_apps/${{ matrix.project }}"
           push: false
           load: true
           tags: ${{ matrix.project }}:latest
