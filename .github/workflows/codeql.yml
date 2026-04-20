@@ -48,9 +48,8 @@ jobs:
       # In case our java project, we are leveraging some project specific needs
       - if: matrix.language == 'java-kotlin'
         name: Compile project
-        run: |
-          cd vuln_apps/webgoat
-          ./mvnw -B clean package -DskipTests=true
+        working-directory: vuln_apps/webgoat
+        run: mvn -B clean package -DskipTests
 
       # Perform the actual code analysis, that will automatic upload GitHub security section
       - name: Perform CodeQL Analysis
