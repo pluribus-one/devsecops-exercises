@@ -41,13 +41,20 @@ jobs:
           languages: ${{ matrix.language }}
 
       # Build the codebase, codeql offer an autobuild steps for most of his supported languages: https://docs.github.com/en/code-security/code-scanning/creating-an-advanced-setup-for-code-scanning/codeql-code-scanning-for-compiled-languages
-      - if: matrix.language != 'java-kotlin'
-        name: Autobuild
+      - name: Autobuild
+        if: matrix.language != 'java-kotlin'
         uses: github/codeql-action/autobuild@95e58e9a2cdfd71adc6e0353d5c52f41a045d225 # v4.35.2
 
-      # In case our java project, we are leveraging some project specific needs
-      - if: matrix.language == 'java-kotlin'
-        name: Compile project
+      # In case of java project, we are leveraging some project specific needs
+      - name: Setup Java 25
+        if: matrix.language == 'java-kotlin'
+        uses: actions/setup-java@be666c2fcd27ec809703dec50e508c2fdc7f6654
+        with:
+          java-version: 25
+          distribution: temurin
+
+      - name: Compile project
+        if: matrix.language == 'java-kotlin'
         working-directory: vuln_apps/webgoat
         run: mvn -B clean package -DskipTests
 
