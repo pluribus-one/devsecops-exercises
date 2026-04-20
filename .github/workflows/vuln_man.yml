@@ -41,7 +41,7 @@ jobs:
       - name: Generate SBOMs
         run: >
           docker run --rm
-          -v ${{ github.workspace }}/vuln_apps/${{ matrix.project }}:/app
+          -v ${{ github.workspace }}/vuln_apps/${{ matrix.project }}:/app:z
           -w /app
           ${{ matrix.cdx_image }}
           cdxgen
