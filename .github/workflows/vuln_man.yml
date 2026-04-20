@@ -19,23 +19,36 @@ jobs:
           - project: juice-shop
             cdx_image:  ghcr.io/cyclonedx/cdxgen@sha256:41b84d3805940973417b45d9a41c779b5be4a8fcb28a39fdef672f94e6056540
 
-    container:
-      image: ${{matrix.cdx_image}}
+    # container:
+    #   image: ${{ matrix.cdx_image }}
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd #V6.0.2
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
         with:
           submodules: recursive
 
+      # - name: Generate SBOMs
+      #   working-directory: vuln_apps/${{ matrix.project }}
+      #   run: >
+      #     cdxgen 
+      #     --format json 
+      #     --spec-version="${{matrix.cdx_spec_version}}" 
+      #     --project-name="${{ matrix.project }}" 
+      #     --project-version="${{ github.run_number }}" 
+      #     -o "${{ matrix.project }}_bom.json"
+
       - name: Generate SBOMs
-        working-directory: vuln_apps/${{ matrix.project }}
         run: >
-          cdxgen 
-          --format json 
-          --spec-version="${{matrix.cdx_spec_version}}" 
-          --project-name="${{ matrix.project }}" 
-          --project-version="${{ github.run_number }}" 
+          docker run --rm
+          -v ${{ github.workspace }}/vuln_apps/${{ matrix.project }}:/app
+          -w /app
+          ${{ matrix.cdx_image }}
+          cdxgen
+          --format json
+          --spec-version="${{ matrix.cdx_spec_version }}"
+          --project-name="${{ matrix.project }}"
+          --project-version="${{ github.run_number }}"
           -o "${{ matrix.project }}_bom.json"
 
       - name: Upload results
