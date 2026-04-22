@@ -30,8 +30,6 @@ jobs:
       # Checkout the repo, this will setup the pipeline with our actual codebase
       - name: Checkout repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-        with:
-          submodules: recursive
 
       # Setup CodeQL tool, with this setup step, we are specifying the language of the scan, and also some extra arguments in a configuration file
       - name: Initialize CodeQL
