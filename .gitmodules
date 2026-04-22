@@ -1,6 +1,6 @@
 [submodule "vuln_apps/webgoat"]
 	path = vuln_apps/webgoat
-	url = https://github.com/WebGoat/WebGoat.git
+	url = https://github.com/pluribus-one/WebGoat.git
 [submodule "vuln_apps/juice-shop"]
 	path = vuln_apps/juice-shop
-	url = https://github.com/juice-shop/juice-shop.git
+	url = https://github.com/pluribus-one/juice-shop.git
