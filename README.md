@@ -101,14 +101,17 @@ https://github.com/OWASP/threat-dragon
 **CVSS 4.0** - https://www.first.org/cvss/calculator/4.0
 
 ## SBOM generation
-**cdxgen** - https://github.com/CycloneDX/cdxgen
+**cdxgen** - https://cdxgen.github.io/cdxgen/#/  
+**GitHub repo** - https://github.com/CycloneDX/cdxgen
+
 
 ## VEX generation
 **osv scanner** - https://github.com/google/osv-scanner  
 **trivy** - https://github.com/aquasecurity/trivy
 
-## K8s cluster KBOM and scan
-**trivy** - https://github.com/aquasecurity/trivy
+## K8s (kubernetes) cluster KBOM and scan
+**trivy** - https://trivy.dev/docs/latest/guide/target/kubernetes/  
+**GitHub repo** - https://github.com/aquasecurity/trivy
 
 ## Continuous Security Monitoring
 **Dependency Track** - https://dependencytrack.org/
