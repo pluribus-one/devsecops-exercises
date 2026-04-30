@@ -94,24 +94,26 @@ services:
     #   EXTRA_JAVA_OPTIONS: ""
     environment:
       ALPINE_DATABASE_MODE: "external"
-      ALPINE_DATABASE_URL: "jdbc:postgresql://postgres:5432/dtrack"
+      ALPINE_DATABASE_URL: ${DB_URL}/${DB_NAME}
       ALPINE_DATABASE_DRIVER: "org.postgresql.Driver"
-      ALPINE_DATABASE_USERNAME: "dtrack"
-      ALPINE_DATABASE_PASSWORD: "dtrack"
+      ALPINE_DATABASE_USERNAME: ${DB_USERNAME}
+      ALPINE_DATABASE_PASSWORD: ${DB_PASSWORD}
     deploy:
       resources:
         limits:
-          memory: 12288m
-        reservations:
-          memory: 8192m
+          memory: 4g
       restart_policy:
         condition: on-failure
     ports:
-    - '8081:8080'
+      - "8081:8080"
     volumes:
-    - 'dtrack-data:/data'
+      - "dtrack-data:/data"
     healthcheck:
-      test: [ "CMD-SHELL", "wget -t 1 -T 3 --no-proxy -q -O /dev/null http://127.0.0.1:8080$${CONTEXT}health || exit 1" ]
+      test:
+        [
+          "CMD-SHELL",
+          "curl -f -s --max-time 3 --noproxy '*' -o /dev/null http://127.0.0.1:8080$${CONTEXT}health",
+        ]
       interval: 30s
       start_period: 60s
       timeout: 3s
@@ -143,16 +145,16 @@ services:
   postgres:
     image: postgres@sha256:f10a604604a35145f05c3958e5029f5bd89f91723918251f7735a8da4dc80a50 # 17.9-alpine3.22
     environment:
-      POSTGRES_DB: "dtrack"
-      POSTGRES_USER: "dtrack"
-      POSTGRES_PASSWORD: "dtrack"
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}" ]
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
       interval: 5s
       timeout: 3s
       retries: 3
     volumes:
-    - "postgres-data:/var/lib/postgresql/data"
+      - "postgres-data:/var/lib/postgresql/data"
     restart: unless-stopped
 
 volumes:
