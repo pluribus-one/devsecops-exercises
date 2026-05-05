@@ -19,24 +19,6 @@ Per poter agire in autonomia durante gli esercizi, abbiamo identificato come pra
 Di seguito gli step necessari per effettuarla una volta che avrete creato l'account GitHub:  
 https://docs.github.com/en/get-started/quickstart/fork-a-repo
 
-Clona il repo con i submodule:
-```bash
-git clone --recurse-submodules <tuo-repo>
-```
-
-Se hai già clonato senza submodule:
-```bash
-git submodule update --init
-```
-
-#### Aggiornare i progetti
-
-Nel caso l'upstream viene aggiornato, si può aggiornare la copia in locale dei submodules con il seguente comando.
-
-```bash
-git submodule update --remote
-```
-
 ### Docker Hub
 
 Per eseguire uno degli esercizi è necessario avere un account su docker hub, creare una chiave API di accesso ed infine inserirla nella parte secrets sulla repository che andrete a creare.  
@@ -69,7 +51,22 @@ Per effettuarlo, dovrete effettuare i seguenti passi:
 Come riferimento, ecco la documentazione per la gestione dei secrets di github:  
 https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
 
-<br/>
+### Dependency Track
+Per velocizzare il download e alleggerire gli esercizi dagli step di configurazione, é necessario effettuare le seguenti operazioni una volta installato docker sul computer/vm che userete durante il corso:
+#### Esecuzione di dependency track
+Eseguite il seguente comando dalla root di questo repository:
+```
+cd dtrack
+docker compose up -d
+```
+In questo modo scaricherete le immagini docker necessarie all'applicativo, che verrá successivamente eseguito.  
+Una volta in esecuzione scaricherá i dati aggiuntivi necessari a fruire delle sue funzionalitá.
+
+#### Creazione API key per dependency track
+Per evitare il rate limiting delle API imposto dal NIST per l'accesso ai dati delle CVE in uso da dependency track, é necessario creare un API token sul sito del nist.  
+Per farlo dovete navigare al seguente link e sottomettere la form con i vostri dati:  
+https://nvd.nist.gov/developers/request-an-api-key  
+Una volta inviata la form, seguite le istruzioni della mail per ottenere l'API key che utilizzeremo durante il corso.
 
 ## Extra
 
@@ -101,9 +98,7 @@ https://github.com/OWASP/threat-dragon
 **CVSS 4.0** - https://www.first.org/cvss/calculator/4.0
 
 ## SBOM generation
-**cdxgen** - https://cdxgen.github.io/cdxgen/#/  
-**GitHub repo** - https://github.com/CycloneDX/cdxgen
-
+**cdxgen** - https://cdxgen.github.io/cdxgen/#/
 
 ## VEX generation
 **osv scanner** - https://github.com/google/osv-scanner  
@@ -111,7 +106,6 @@ https://github.com/OWASP/threat-dragon
 
 ## K8s (kubernetes) cluster KBOM and scan
 **trivy** - https://trivy.dev/docs/latest/guide/target/kubernetes/  
-**GitHub repo** - https://github.com/aquasecurity/trivy
 
 ## Continuous Security Monitoring
 **Dependency Track** - https://dependencytrack.org/
