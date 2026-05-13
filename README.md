@@ -115,6 +115,7 @@ https://github.com/OWASP/threat-dragon
 **trivy** - https://github.com/aquasecurity/trivy
 
 ## K8s (kubernetes) cluster KBOM and scan
+**Kubernetes** - https://kubernetes.io/  
 **trivy** - https://trivy.dev/docs/latest/guide/target/kubernetes/  
 
 ## Continuous Security Monitoring
@@ -133,6 +134,7 @@ https://github.com/OWASP/threat-dragon
 **Nuclei (ProjectDiscovery)** - https://projectdiscovery.io/nuclei
 
 ## Image Scan
+**Docker** - https://www.docker.com/  
 **Docker Scout** - https://docs.docker.com/scout/quickstart/
 
 ## Security frameworks
