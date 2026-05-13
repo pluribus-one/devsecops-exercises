@@ -145,6 +145,19 @@ https://github.com/OWASP/threat-dragon
 The vulnerable applications we have exposed in this repository are taken from a list provided by OWASP, which compiles and categorizes projects created for this purpose at the following link:  
 https://owasp.org/www-project-vulnerable-web-applications-directory/
 
+# Supply chain attacks
+Below is a collection of articles on supply chain attacks that are unfortunately notorious for their operational and media impact
+## Trivy GitHub action (02/2026 - 03/2026)
+https://www.aquasec.com/blog/trivy-supply-chain-attack-what-you-need-to-know/
+https://snyk.io/articles/trivy-github-actions-supply-chain-compromise/
+## Shai-Hulud (09/2025)
+https://attack.mitre.org/software/S9008/
+## 3CX (11/2022)
+https://attack.mitre.org/campaigns/C0057/
+## Log4J (10/2021 - 12/2021)
+https://nvd.nist.gov/vuln/detail/CVE-2021-44228
+## SolarWind (09/2019 - 03/2020)
+https://www.fortinet.com/resources/cyberglossary/solarwinds-cyber-attack
 
 # Follow Us on Security News
 Stay up to date with the latest news on cybersecurity by subscribing at the following link:  
