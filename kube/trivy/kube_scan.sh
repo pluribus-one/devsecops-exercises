@@ -20,7 +20,7 @@ resources=pods
 #resources=deployment,pods
 report_type=summary
 #report_type=all
-scanners=misconfig,secret
+scanners=vuln,misconfig,secret
 severity=HIGH,CRITICAL
 
 mkdir -p "$HOME"/Library/Caches
