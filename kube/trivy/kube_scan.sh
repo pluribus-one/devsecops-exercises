@@ -14,9 +14,14 @@ if [ -z "$CLUSTER_IP" ]; then
     exit 1
 fi
 
-namespaces=dso-apps
-resources=deployment,pods
-report_type=summary # or all
+namespaces=kube-system
+#namespaces=dso-apps
+resources=pods
+#resources=deployment,pods
+report_type=summary
+#report_type=all
+scanners=misconfig,secret
+severity=HIGH,CRITICAL
 
 mkdir -p "$HOME"/Library/Caches
 
@@ -29,7 +34,8 @@ docker run --rm \
     -e TRIVY_JAVA_DB_REPOSITORY="$TRIVY_DB_JAVA" \
     --add-host "$KUBE_CONFIG_HOST":"$CLUSTER_IP" \
     aquasec/trivy@sha256:be1190afcb28352bfddc4ddeb71470835d16462af68d310f9f4bca710961a41e k8s \
-    --severity HIGH,CRITICAL \
+    --severity $severity \
     --include-namespaces $namespaces \
     --include-kinds $resources \
+    --scanners $scanners \
     --report $report_type
