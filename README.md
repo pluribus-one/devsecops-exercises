@@ -5,8 +5,7 @@
 This repository was created to collect exercises and provide practical instructions to help you prepare for the *Integrate Vulnerability Management in DevSecOps Cycle* course
 
 ## Base Prerequisites
-To complete the tasks in the exercises, you'll need a GitHub account (it's free):  
-https://github.com/signup
+To complete the tasks in the exercises, you'll need a [GitHub account](https://github.com/signup).
 
 **If the course is held in person, please remember to bring your laptop and charger!**
 
@@ -17,19 +16,15 @@ To get the most out of the tools we’ll be using together in this course, we st
 
 To ensure you can work independently during the exercises, we recommend that you fork our starter repository to your GitHub profile.  
 
-Here are the steps you need to follow once you’ve created your GitHub account:  
-https://docs.github.com/en/get-started/quickstart/fork-a-repo
+The steps you need to follow to perform this operation are available [at this guide](https://docs.github.com/en/get-started/quickstart/fork-a-repo).
 
 ### Docker Hub
 
 To run the exercise on Docker, you need to have an account on Docker Hub, create an API access key, and then add it to the **Secrets** section of the repository you are going to create.  
 
-You can create an account at the following link:  
-https://hub.docker.com/signup  
+You can create an account directly from [Docker Hub](https://hub.docker.com/signup).  
 
-Once you've created your account, you'll be able to generate an access token.  
-To do so, follow the steps at the link below:  
-https://docs.docker.com/security/for-developers/access-tokens/
+Once you've created your account, you'll be able to [generate an access token](https://docs.docker.com/security/for-developers/access-tokens/).
 
 #### Forked Repo docker hub permissions
 
@@ -49,8 +44,7 @@ To do this, follow these steps:
 
 <br/>
 
-For your reference, here is the documentation on managing secrets on GitHub:  
-https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions
+For your reference, here is the documentation on [managing secrets on GitHub](https://docs.github.com/en/actions/security-guides/using-secrets-in-github-actions).
 
 ### Dependency Track
 To speed up the download and simplify the setup process for the exercises, please follow these steps once you have installed Docker on the computer or virtual machine you will be using during the course:
@@ -69,29 +63,24 @@ To avoid the rate limits imposed by CVE data providers on public APIs, you need 
 Be sure to save both tokens so that you can easily access them later.
 
 ##### GitHub
-Go to the following link and create a token (classic); you'll need a GitHub account (at this point you should already have it):  
-https://github.com/settings/tokens  
-The token does not require a scope or access to the repository.
+Create a token (classic) from your GitHub account [settings page](https://github.com/settings/tokens). The token does not require a scope or access to the repository.
 
 ##### NIST
-Please click on the following link and fill out the form with your information:  
-https://nvd.nist.gov/developers/request-an-api-key  
-Once you've submitted the form, follow the instructions in the email to obtain the API key that we'll use during the course.
+Fill [this form](https://nvd.nist.gov/developers/request-an-api-key) with your information.  
+Once you've submitted it, follow the instructions in the email to obtain the API key that we'll use during the course.
 
 ## Extra
 
 If you have a preferred IDE, you can clone the repository you forked and set up the Git client configurations as usual.
 
 ### Generate SSH key on GitHub
-https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent
+[Instructions here](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent).
 
 ### Installing Docker and pulling images
 
 Some of the exercises we will be working on during the course require the use of containerization software. Due to its popularity and extensive documentation, we recommend using **Docker**, but the equivalent alternatives **Podman** and **Containerd** are also suitable for this purpose.  
 
-To use **Docker**, you will find installation instructions specific to the Linux operating system you will be using during the course at the following address:  
-https://docs.docker.com/engine/install/  
-
+To use **Docker**, you can follow the [installation instructions](https://docs.docker.com/engine/install/) specific to the Linux operating system you will be using during the course.  
 
 To speed up access to the content, once you have installed **Docker**, download the following images to your workstation a few days before the course begins:
 - `docker pull aquasec/trivy@sha256:be1190afcb28352bfddc4ddeb71470835d16462af68d310f9f4bca710961a41e` (0.70.0)
@@ -101,51 +90,50 @@ To speed up access to the content, once you have installed **Docker**, download 
 In this section, you'll find links to the tools and external resources shared during the training.
 
 ## Threat Modeling with OWASP threat dragon
-https://github.com/OWASP/threat-dragon
+[OWASP threat dragon github page.](https://github.com/OWASP/threat-dragon)
 
 ## CVSS scoring
-**CVSS 3.1** - https://www.first.org/cvss/calculator/3.1  
-**CVSS 4.0** - https://www.first.org/cvss/calculator/4.0
+- [CVSS 3.1](https://www.first.org/cvss/calculator/3.1)
+- [CVSS 4.0](https://www.first.org/cvss/calculator/4.0)
 
 ## SBOM generation
-**cdxgen** - https://cdxgen.github.io/cdxgen/#/
+- [cdxgen](https://cdxgen.github.io/cdxgen/#/)
 
 ## VEX generation
-**osv scanner** - https://github.com/google/osv-scanner  
-**trivy** - https://github.com/aquasecurity/trivy
+- [osv scanner](https://github.com/google/osv-scanner)
+- [trivy](https://github.com/aquasecurity/trivy)
 
 ## K8s (kubernetes) cluster KBOM and scan
-**Kubernetes** - https://kubernetes.io/  
-**trivy** - https://trivy.dev/docs/latest/guide/target/kubernetes/  
+- [Kubernetes](https://kubernetes.io/)
+- [trivy](https://trivy.dev/docs/latest/guide/target/kubernetes/)
 
 ## Continuous Security Monitoring
-**Dependency Track** - https://dependencytrack.org/
+- [Dependency Track](https://dependencytrack.org/)
 
 ## SAST
-**OWASP suggested SAST tools** - https://owasp.org/www-community/Source_Code_Analysis_Tools  
-**CodeQL supported languages** - https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/  
-**SonarQube supported languages** - https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/languages/overview/  
+- [OWASP suggested SAST tools](https://owasp.org/www-community/Source_Code_Analysis_Tools)
+- [CodeQL supported languages](https://codeql.github.com/docs/codeql-overview/supported-languages-and-frameworks/)
+- [SonarQube supported languages](https://docs.sonarsource.com/sonarqube/latest/analyzing-source-code/languages/overview/)
 
 ## DAST
-**ZAP GitHub Action** - https://github.com/marketplace/actions/zap-full-scan  
-**ZAP Custom Auth Scripts** - https://www.zaproxy.org/docs/authentication/handling-auth-yourself/  
-**ZAProxy (CheckMarx)** - https://www.zaproxy.org/download  
-**BurpSuite (PortSwigger)** - https://portswigger.net/burp/communitydownload  
-**Nuclei (ProjectDiscovery)** - https://projectdiscovery.io/nuclei
+- [ZAP GitHub Action](https://github.com/marketplace/actions/zap-full-scan)
+- [ZAP Custom Auth Scripts](https://www.zaproxy.org/docs/authentication/handling-auth-yourself/)
+- [ZAProxy (CheckMarx)](https://www.zaproxy.org/download)
+- [BurpSuite (PortSwigger)](https://portswigger.net/burp/communitydownload)
+- [Nuclei (ProjectDiscovery)](https://projectdiscovery.io/nuclei)
 
 ## Image Scan
-**Docker** - https://www.docker.com/  
-**Docker Scout** - https://docs.docker.com/scout/quickstart/
+- [Docker](https://www.docker.com/)
+- [Docker Scout](https://docs.docker.com/scout/quickstart/)
 
 ## Security frameworks
-**5D framework** - https://owasp.org/www-project-software-security-5d-framework/  
-**SCVS** - https://owasp.org/www-project-software-component-verification-standard/  
-**SCVS JSON** - https://github.com/OWASP/Software-Component-Verification-Standard/releases/download/1.0/OWASP_SCVS-1.0.json  
-**ASVS** - https://owasp.org/www-project-application-security-verification-standard/
+- [5D framework](https://owasp.org/www-project-software-security-5d-framework/)
+- [SCVS](https://owasp.org/www-project-software-component-verification-standard/)
+- [SCVS JSON](https://github.com/OWASP/Software-Component-Verification-Standard/releases/download/1.0/OWASP_SCVS-1.0.json)
+- [ASVS](https://owasp.org/www-project-application-security-verification-standard/)
 
 ## OWASP Vulnerable Apps
-The vulnerable applications we have exposed in this repository are taken from a list provided by OWASP, which compiles and categorizes projects created for this purpose at the following link:  
-https://owasp.org/www-project-vulnerable-web-applications-directory/
+The vulnerable applications we have exposed in this repository are taken from a list provided by OWASP, which compiles and categorizes projects created for this purpose [at this link](https://owasp.org/www-project-vulnerable-web-applications-directory/).
 
 # Supply chain attacks
 Below is a collection of articles on supply chain attacks that are unfortunately notorious for their operational and media impact
@@ -172,5 +160,4 @@ Below is a collection of articles on supply chain attacks that are unfortunately
 - https://www.fortinet.com/resources/cyberglossary/solarwinds-cyber-attack
 
 # Follow Us on Security News
-Stay up to date with the latest news on cybersecurity by subscribing at the following link:  
-https://davideariu.substack.com/
+Stay up to date with the latest news on cybersecurity by [subscribing here](https://davideariu.substack.com/).
