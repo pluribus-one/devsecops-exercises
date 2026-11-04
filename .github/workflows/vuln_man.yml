@@ -187,10 +187,20 @@ jobs:
   #         name: sbom-${{matrix.project}}-merged
   #         path: ./sboms-${{matrix.project}}
 
-  #     - name: SCVS assessment
+  #     - name: SCVS report (JSON)
   #       run: >
   #         cdx-validate
   #         -i sboms-${{matrix.project}}/${{ matrix.project }}_merged_sbom.json
   #         --benchmark scvs-l1,scvs-l2,scvs-l3
+  #         --include-pass
   #         --no-include-manual
   #         --fail-severity critical
+  #         -r json
+  #         -o scvs-${{ matrix.project }}.json
+
+  #     - name: Upload SCVS report
+  #       uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+  #       with:
+  #         name: scvs-${{ matrix.project }}
+  #         path: scvs-${{ matrix.project }}.json
+  #         retention-days: 5
