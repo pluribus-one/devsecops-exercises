@@ -14,23 +14,44 @@ jobs:
         project: ["webgoat", "juice-shop"]
         cdx_spec_version: ["1.6"]
 
-    container:
-      image: ghcr.io/cdxgen/cdxgen@sha256:e4b5773b4bdd25ecc0602ab1bdada1efea38ad9a2e354cf6fa6aa13b5671139b # 13.5.0
-      options: --user root
-
     steps:
       - name: Checkout Repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Generate SBOMs
-        working-directory: vuln_apps/${{ matrix.project }}
+      # WebGoat: SBOM from Maven dependencies (cyclonedx-maven-plugin)
+      - name: Setup Java 25
+        if: matrix.project == 'webgoat'
+        uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+        with:
+          java-version: 25
+          distribution: temurin
+          cache: maven
+          cache-dependency-path: vuln_apps/webgoat/pom.xml
+
+      - name: Generate SBOM (cyclonedx-maven-plugin)
+        if: matrix.project == 'webgoat'
+        working-directory: vuln_apps/webgoat
         run: >
-          cdxgen 
-          --format cyclonedx 
-          --spec-version="${{ matrix.cdx_spec_version }}" 
-          --project-name="${{ matrix.project }}" 
-          --project-version="${{ github.run_number }}" 
-          -o "${{ matrix.project }}_bom.json"
+          mvn -B org.cyclonedx:cyclonedx-maven-plugin:makeAggregateBom
+          -DprojectType=application
+          -DschemaVersion=${{ matrix.cdx_spec_version }}
+          -DoutputFormat=json
+          -DoutputName=${{ matrix.project }}_bom
+          -DoutputDirectory=.
+
+      # Juice Shop: SBOM from npm dependencies (project "sbom" script, cyclonedx-npm)
+      - name: Setup Node 24
+        if: matrix.project == 'juice-shop'
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+
+      - name: Generate SBOM (cyclonedx-npm)
+        if: matrix.project == 'juice-shop'
+        working-directory: vuln_apps/juice-shop
+        run: |
+          npm install --ignore-scripts
+          npm run sbom -- --spec-version ${{ matrix.cdx_spec_version }} --output-file ${{ matrix.project }}_bom.json
 
       - name: Upload results
         if: always()
