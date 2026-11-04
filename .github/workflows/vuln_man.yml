@@ -7,7 +7,7 @@ jobs:
 # Exercise SBOM generation
   sbom:
     name: Generate app SBOM
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-26.04
     strategy:
       fail-fast: false
       matrix:
@@ -64,7 +64,7 @@ jobs:
 ## Exercise Docker SBOM generation
   # sbom-docker:
   #   name: Generate docker SBOM
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-26.04
   #   strategy:
   #     fail-fast: false
   #     matrix:
@@ -127,7 +127,7 @@ jobs:
 ## Exercise Merge multiple SBOMs
   # merge-sbom:
   #   name: Merge previously generated SBOM
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-26.04
   #   needs: ["sbom", "sbom-docker"]
   #   container: cyclonedx/cyclonedx-cli@sha256:252c2e26f468c25fea1e63ecde1bc3198ad6e9dbb57f5ed3236bddcb2281b3a7 # 0.33.1
   #   strategy:
@@ -169,7 +169,7 @@ jobs:
 ## Exercise SCVS assessment
   # scvs:
   #   name: SCVS assessment
-  #   runs-on: ubuntu-latest
+  #   runs-on: ubuntu-26.04
   #   needs: ["merge-sbom"]
   #   strategy:
   #     fail-fast: false
